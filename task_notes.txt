@@ -1,0 +1,1098 @@
+Course url (LMS Link) - https://www.rjpinfotek.com/course/terraformb20
+
+Welcome to TCS Exclusive Days - Terraform - Batch 20 - May 2026
+
+Day 1
+Cloud Characteristics
+ On deman self service
+ Broad network access
+ Resource pooling
+ Rapid elasticity
+ Measured services
+
+Services
+IaaS - manage OS/ control --> migrate to it
+PaaS --> build on it 
+SaaS --> consume it
+
+Private Cloud, Public Cloud, Hybrid Cloud
+https://developer.hashicorp.com/terraform
+
+Task 1 - Install Terraform
+https://developer.hashicorp.com/terraform/install
+
+terraform
+terraform version
+terraform -v
+
+Amit C;Shanmuga priya , Ahtesham, Gurusamy, varadhalingam,Shraddha,boopathi,Kavin,AnilKumarRajana,Prakash,Kaviti Poorna,Mohan Kumar Thirmani.Ragapriya,ArnabDB, Arif,Atul,Unnikrishnan,Pratik
+
+Task 2 - Add Environmental Variable - C:\terraform
+Start ->sear for env -> select edit environmental variable -> select Environmental Variables -> select Path -> Edit -> New -> map the terraform folder (where terraform application is extracted) --> OK
+Close cmd and open again -> now it allow terraform command
+
+Amit C; Ahtesham, Mohan Kumar Thirmani;Atul; Arif,AnilKumarRajana;Shraddha,Shanmuga Priya,ArnabDB,Kavin,ragapriya,varadhalingam,Prakash,kaviti Poorna, Gurusamy, Unnikrishnan,Pratik
+
+HCL Syntax
+https://developer.hashicorp.com/terraform/language/syntax/configuration
+
+<BLOCK TYPE> "<BLOCK LABEL>" "<BLOCK LABEL>" {
+     #Block Body <IDENTIFIER> = <EXPRESSION> #Argument
+  }
+ Block Type --> resource, provider, variable, output
+ Block Label --> provides names or subtypes that make the block unique
+First Label --> resource type
+ Second Lable --> terraform local name used to reference it
+3. Block Body ---> everything inside {......}
+3.1 Contains arguments, settings, expressions
+
+Day 2
+Task 3 - Create a file using TCL / HCL
+main.tf
+resource "local_file" "myfile" {
+        content = "My first file using TF"
+        filename = "file1.txt"
+}
+
+Ahtesham, Amit C; Anil Kumar Rajana;varadhalingam,Shanmuga Priya,Unnikrishnan,Arifkaviti Poorna, Gurusamy, ragapriya,Pratik, ArnabDB,Kavin,Prakash,Mohan Kumar Thirmani, boopathi
+
+Install VSCode with -Hashicorp Terraform Extension
+Task 4 - Create random password (length = 10, special character, min-lower =5)
+main.tf
+resource "random_password" "pwd" {
+  length = 10
+  special = true
+  min_lower = 5
+}
+
+AnilKumarRajana;kaviti Poorna,Shraddha,;Atul,Mohan Kumar Thirmani, Ahtesham,varadhalingam, Arif, UnnikrishnanArnabDB, Gurusamy, Boopathi,Kavin;Amit C,Prakash,Shanmuga Priya,Pratik
+
+Task 5 - Create a random pet - Length=3, prefix = DB, seperator = -
+main.tf
+resource "random_pet" "nrdm" {
+  length = 3
+  separator = "-"
+  prefix = "DB"
+}
+Atul;ragapriya,Shraddha, AnilKumar Rajana,Unnikrishnan ,varadhalingam,ArnabDB,kavin, Gurusamy, Kaviti Poorna, Arif, Prakash;Amit C,Shanmuga Priya,Boopathi,Pratik
+
+
+terraform destroy -- to destroy all resources in the state file
+terraform state -- to see all state commands
+terraform state list -- to see all the resources in state file
+terraform destroy -target resourcename (get the resourcename from terraform state list command) -- to delete particular resource in state file
+terraform state show resourcename - to view resource in state file
+terraform fmt -- formats Terraform configuration contents so that it matches the conanical format and style
+terraform validate -- verifies the configuration files in a directory are valid
+
+Amit C;varadhalingam,Kavin,kaviti Poorna,Prakash, Arif,Unnikrishnan, Gurusamy, Shanmuga Priya,ArnabDB,Shraddha,AnilKumarRajana,Mohan Kumar Thirmani,ragapriya, kavin,Pratik, Ahtesham
+
+AWS Console url ---
+https://thaha.signin.aws.amazon.com/console
+Download AWS CLI and Install
+https://awscli.amazonaws.com/AWSCLIV2.msi
+
+Task 6 - Create provider block in provider.tf file
+provider.tf
+provider "aws" {
+  region     = "us-east-1"
+  access_key = "my-access-key"
+  secret_key = "my-secret-key"
+}
+
+Task 7 - Create a VPC in aws
+main.tf
+resource "aws_vpc" "myvpc" {
+  cidr_block = "10.31.0.0/16"
+  tags = {
+    Name = "ThahaVPC"
+  }
+}
+
+
+
+Day 3
+Task 8 - Create VPC with 2 subnets
+main.tf
+resource "aws_vpc" "myvpc" {
+  cidr_block = "10.X.0.0/16"
+  tags = {
+    Name = "yournameVPC"
+  }
+}
+
+resource "aws_subnet" "sub1" {
+  cidr_block = "10.X.1.0/24"
+  vpc_id = aws_vpc.myvpc.id
+}
+
+resource "aws_subnet" "sub2" {
+  cidr_block = "10.X.2.0/24"
+  vpc_id = aws_vpc.myvpc.id
+}
+
+Unnikrishnan,varadhalingam,AnilKumarRajana,Prakash,Shraddha,Kaviti Poornakavin,Atul,Boopathi, Arif; Amit C,Shanmuga Priya,Ahtesham,ArnabDB,Pratik, Gurusamy
+
+Task 9 - Create a S3 bucket --- tcs-yourname-bucketX (ex: tcs-thaha-bucket31)
+main.tf
+resource "aws_s3_bucket" "strg" {
+  bucket = "tcs-thaha-bucket31"
+  tags = {
+    Name = "thahabucket"
+  }
+}
+
+Ahtesham,Shanmuga Priya,AnilKumarRajana,Unnikrishnankavin,varadhalingam,Prakash, ArifKavitiPoorna,Shraddha,boopathiAtul,Mohan Kumar Thirmani,ArnabDB; Amit C,ragapriya,Pratik, Gurusamy
+
+Task 10 - Create an EC2 instance with Amazon Linux AMI
+Amazon linux ami id = ami-0eb38b817b93460ac
+Allowed instance type --- t2.micro, t3.micro, t3.small
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "Thahaserver1"
+  }
+}
+
+AmitC;varadhalingam,Kaviti Poorna,Atul, Arif, AnilKumarRajana,Shraddha,ArnabDB,Mohan Kumar Thirmani,UnnikrishnanKavin,Ahtesham,Boopathi,Prakash,ragapriya,Shanmuga Priya,Pratik, Gurusamy, 
+
+Add output block and get private ip, public ip and public dns of EC2 instance
+output "privateip" {
+  value = aws_instance.myserver.private_ip
+}
+
+output "publicip" {
+  value = aws_instance.myserver.public_ip
+}
+
+output "publicnds" {
+  value = aws_instance.myserver.public_dns
+}
+
+Kaviti Poorna,Mohan Kumar Thirmani,ArnabDB,Atul,varadhalingam,AnilKumarRajana, Ahtesham,Boopathi,ragapriya,Amit CUnnikrishnan;,Pratik, Gurusamy,  
+
+Task. 1: Create a VPC and Subnet         2. Create an EC2 instance, associate it to the subnet created
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  subnet_id = aws_subnet.sub1.id
+  tags = {
+    Name = "Thahaserver1"
+  }
+}
+
+resource "aws_vpc" "myvpc" {
+  cidr_block = "10.31.0.0/16"
+  tags = {
+    Name = "ThahaVPC"
+  }
+} 
+
+resource "aws_subnet" "sub1" {
+  cidr_block = "10.31.1.0/24"
+  vpc_id = aws_vpc.myvpc.id
+}
+
+
+AnilKumarRajana,Atul,varadhalingam,Boopathi,kaviti poorna,ragapriya,Mohan Kumar Thirmani,Shanmuga Priya,Unnikrishnan, Arif:Amit C,Ragapriya,ArnabDB, Gurusamy, 
+
+Task 11 - Create a default profile and add access and secret key with default region
+aws configure
+provide access key
+provide secret key
+default region
+
+provider.tf
+provider "aws" {
+profile = "default"
+}
+
+To check the profile
+C:\users\username(administrator)\.aws\config --- default region
+C:\users\username(administrator)\.aws\credentials --- access key and secret key
+
+Atul,Shraddha, Arif, varadhalingam,ragapriya,Boopathi,AnilKumarRajana;Amit C,ArnabDBkavin,Prakash,Ahtesham,Shanmuga Priya,Pratik
+
+FYI - If 2nd profile is required
+aws configure --profile newname
+provide access key
+provide secret key
+default region
+
+Once profile is created we have to add the 2nd profile in provider.tf
+provider.tf
+provider "aws" {
+profile = "default"
+}
+provider "aws" {
+     alias = "awsnew"
+profile = "newname"
+}
+
+To create resource using 2nd profile add provider detail in resource block
+main.tf
+resource "aws_vpc" "myvpc" {
+  provider = aws.awsnew
+  cidr_block = "10.31.0.0/16"
+  tags = {
+    Name = "ThahaVPC"
+  }
+} 
+
+ArnabDB
+
+Day 4
+Semantic Version Tags
+Ex: 6.30.7
+6 - Major Version
+30 - Minor Version
+7 - Patches
+
+
+Ex: I need terrafrom version 1.14.0
+
+terraform {
+  required_version = "1.14.0"
+}
+
+Ex: I need AWS version 6.1.0
+terraform {
+  required_providers {
+    aws = {
+      version = "6.1.0"
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+Ex: I need terraform version 1.14.0 and aws version 6.1.0
+terraform {
+  required_version = "1.14.0"
+  required_providers {
+    aws = {
+      version = "6.1.0"
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+Examples
+required version = "= 0.13.3" -exact version
+required version = "!= 0.13.3" -any version except this
+required version = "> 0.13.3" -greater than version
+required version = ">= 0.13.3" -greater than or equal
+required version = "<= 0.13.3" -less than or equal
+required version = "~>= 0.13" -allow Minor level increaments    -- example 0.13.21----> 0.14.0
+required version = "~>= 0.13.3" -allow Patch level increaments    -- example 0.13.3----> 0.13.4
+
+
+Task 12 - Declaring Variables
+variable.tf
+variable "vmsize" {
+  description = "Enter instance type"
+}
+
+variable "Env" {
+  description = "Enter environment name"
+}
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = var.vmsize
+  tags = {
+    Name = "Thahaserver1"
+    Env = var.Env
+  }
+}
+
+Ahtesham, Arif, AnilKumarRajana,Shraddha,varadhalingam,ArnabDB,Kaviti Poorna,boopathi,Unnikrishnan,Mohan Kumar Thirmani,Ragapriya,Shanmuga Priay,Pratik;Amit C
+
+String interpolation
+tags = {
+    Name = "Web${var.Env}Server"
+    Env = var.Env
+  }
+Note : "Web${var.Env}Server" -- Terraform uses ${......} for string interpolation -- meaning it inserts the value of a variable inside a string
+Ahtesham,Unnikrishnan,Boopathi,Shraddha,ArnabDB,AnilKumarRajana, Arif,Mohan Kumar Thirmani,Shanmuga Priya,Pratik
+
+Declaring default value in variable.tf
+variable "vmsize" {
+  default = "t3.micro"
+}
+
+variable "Env" {
+  default = "staging"
+}
+Ahtesham, Kaviti Poorna,AnilKumarRajana,ArnabDB,Shraddha, Arif, ragaptriya,boopathi,Unnikrishnan,Mohan Kumar Thirmani,Shanmuga priya,Pratik
+
+Task 13 -  Create a S3 bucket with tag using env variable, prompt bucket name in runtime
+(bucketname - tcs-yourname-bucket21)
+variable.tf
+variable "bname" {
+  description = "Enter bucket name"
+}
+
+variable "Env" {
+  description = "Enter environment name"
+}
+
+main.tf
+resource "aws_s3_bucket" "strg" {
+  bucket = var.bname
+  tags = {
+    environment = var.Env
+  }
+}
+
+Arif, AnilKumarRajana,Shraddha,ragapriya,ArnabDB,Unnikrishnan,Poorna,boopathi,Mohan Kumar Thirmani,Shanmuga Priya,Pratik
+
+Task 14 - Create multiple .tfvars files - supply values and test precedence
+variable.tf
+variable "vmsize" {
+}
+
+variable "env" {
+}
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = var.vmsize
+  tags = {
+    Name = "Web${var.env}server"
+    Env = var.env
+  }
+}
+
+terraform.tfvars
+vmsize = "t2.micro"
+env = "prod"
+
+stage.tfvars
+vmsize = "t2.small"
+env = "stage"
+
+test.tfvars
+vmsize = "t2.nano"
+env = "test"
+
+Note : By default terraform plan / terraform apply will process all the .tf files and terraform.tfvars file
+terraform.tfvars will have the highest priority
+To take vaules from other tfvars file we have to define the file name during execution of terraform plan / apply 
+(Ex: terraform plan -var-file stage.tfvars)
+
+ variable block - default -- if default is not provided --> prompts during execution
+ cmd --> -var var=value (example: terraform plan -var vmsize=t2.small)
+ terraform.tfvars --> overrides default values
+ *.tfvars --> cmd --> -var-file filename.tfvars (ex: terraform plan -var-file stage.tfvars)
+ *.auto.tfvars --> overrides terraform.tfvars
+
+ragapriya,AnilKumarRajana, Arif,Pratik,,Mohan Kumar Thirmani,Unnikrishnan,poorna,Shanmuga Priya,BoopathiArnabDB
+
+Day 5
+Data Types
+List
+Task 15 : Create 2 EC2 instances using List Data Type
+variable.tf
+variable "vmsize" {
+type = list
+default = ["t2.micro","t3.micro","t3.small"]
+}
+
+variable "env" {
+    type = list 
+    default = ["Test","Dev","Prod"]
+}
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = var.vmsize[1]
+   tags = {
+    Name = "Web${var.env[1]}server"
+    Env = var.env[1]
+  }
+}
+
+resource "aws_instance" "myserver1" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = var.vmsize[0]
+   tags = {
+    Name = "Web${var.env[0]}server"
+    Env = var.env[0]
+  }
+}
+Poorna,Boopathi, Arif,Kavin,AnilKumarRajana,Shanmuga Priya,Unnikrishnan,ragapriya,Amit C;Shraddha,ArnabDB
+
+Task 16 : Adding one more variable block, so that it allows user to choose the VMsize and Env
+variable.tf
+variable "vmsize" {
+type = list
+default = ["t2.micro","t3.micro","t3.small"]
+}
+
+variable "selectsize" {
+    description = "Select 0 for t2.micro, 1 for t3.micro, 2 for t3.small"
+}
+
+variable "env" {
+    type = list 
+    default = ["Test","Dev","Prod"]
+}
+
+variable "selectenv" {
+    description = "Select 0 for Test, 1 for Dev, 2 for Prod"
+}
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = var.vmsize[(var.selectsize)]
+   tags = {
+    Name = "Web${var.env[(var.selectenv)]}server"
+    Env = var.env[(var.selectenv)]
+  }
+}
+Unnikrishnan,Shraddha,ArnabDB,AnilKumarRajana,Kavin, Arif;Amit C;Poorna,Boopathi,Shanmuga Priya,
+
+Task 17 : Create a S3 bucket with project name added in the bucket --> Project list --> irctc, passportseva, sbi 
+Example : tcs-username-projectname 
+variable.tf
+variable "bucketname" {
+type = list
+default = ["irctc","passportseva","sbi"]
+}
+
+variable "selectbucket" {
+    description = "Select 0 for irctc, 1 for passportseva, 2 for sbi"
+}
+
+main.tf
+resource "aws_s3_bucket" "strg" {
+  bucket = "tcs-thaha-${var.bucketname[(var.selectbucket)]}"
+  tags = {
+    Name = "thahabucket"
+  }
+}
+
+Arif,AnilKumarRajana,ragapriya,poorna,ArnabDB,Unnikrishnan;Amit C,Shanmuga Priya, boopathi
+
+Task 18 : Adding Validation block in variable block
+variable.tf
+variable "bucketname" {
+
+type = list
+default = ["irctc","passportseva","sbi"]
+}
+
+variable "selectbucket" {
+    description = "Select 0 for irctc, 1 for passportseva, 2 for sbi"
+    validation {
+      condition = (var.selectbucket)<3
+      error_message = "Enter only values from 0 to 2"
+    }
+}
+
+ArnabDB,ragapriya,Amit, Arif,Unnikrishnanpoorna,Shanmuga Priya ,boopathi
+
+Map Datatype
+Task 19 : Create EC2 instance with Map data type
+variable.tf
+variable "vmsize" {
+  type = map(string)
+  default = {
+    "prod" = "t3.micro"
+    "dev" = "t3.small"
+    "test" = "t2.micro"
+  }
+}
+
+variable "selectsize" {
+  description = "Select one of the following - prod, dev, test"
+}
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = var.vmsize[var.selectsize]
+  tags = {
+    Name = "Thahaserver${var.selectsize}"
+  }
+}
+
+Amit C;ragapriya,Unnikrishnan, Arif,AnilKumarRajana,poorna,Shanmuga Priya,boopathi
+
+Adding Validation block 
+variable.tf
+variable "vmsize" {
+  type = map(string)
+  default = {
+    "prod" = "t3.micro"
+    "dev" = "t3.small"
+    "test" = "t2.micro"
+  }
+}
+
+variable "selectsize" {
+  description = "Select one of the following - prod, dev, test"
+  validation {
+    condition = contains (["prod","dev","test"],var.selectsize)
+    error_message = "Supply values mentioned in description"
+  }
+}
+
+AmitC; Arif, Shanmuga Priya,AnilKumarRajanaArnabDB,boopathi
+Addon - To add key values in conditions (instead of explicitly defining keys)
+variable.tf
+variable "vmsize" {
+  type = map(string)
+  default = {
+    "prod" = "t3.micro"
+    "dev" = "t3.small"
+    "test" = "t2.micro"
+  }
+}
+
+variable "selectsize" {
+  description = "Select one of the following - prod, dev, test"
+  validation {
+    condition = contains (keys(var.vmsize),var.selectsize)
+    error_message = "Supply values mentioned in description"
+  }
+}
+
+Amit C;Shanmuga Priya, Arif,AnilKumarRajanaArnabDB,boopathi
+
+Task 20 : Create S3 bucket with project added in name & tag --> project list - irctc, passportseva, sbi
+tcs-username-projectname
+variable.tf
+variable "projectname" {
+  type = map(string)
+  default = {
+    "ir" = "irctc"
+    "ps" = "passportseva"
+    "sb" = "sbi"
+  }
+}
+
+variable "selectproject" {
+  description = "Select ir or ps or sb"
+  validation {
+    condition = contains(keys(var.projectname),var.selectproject)
+    error_message = "Supply only values from description"
+  }
+}
+
+main.tf
+resource "aws_s3_bucket" "strg" {
+  bucket = "tcs-thaha-${var.projectname[(var.selectproject)]}"
+  tags = {
+    Name = "thahabucket"
+  }
+}
+
+Poorna, Arif; AMit C;AnilKumarRajana,boopathi,ArnabDB,Shanmuga priya,
+
+Day 6
+List data type
+variable "list" {
+  type = list(string)
+  default = [ "t2.micro","t2.small","t3.micro","t2.micro","t2.small"]
+}
+
+output "listout" {
+  value = var.list[*]
+}
+
+Set data type
+variable "set" {
+  type = set(string)
+  default = [ "t2.micro","t2.small","t3.micro","t2.micro","t2.small"]
+}
+
+output "listout" {
+  value = var.set[*]
+}
+
+Ahtesham,boopathi, Gurusamy, Shanmuga Priya,Unnikrishnan, Arif; AMit C,AnilKumarRajana
+
+Task 21 : Create an EC2 instance and get selective information about EC2 instance in a file
+https://developer.hashicorp.com/terraform/language/expressions/strings
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "Thahaserver1"
+  }
+}
+
+resource "local_file" "myec2data" {
+  filename = "Thahaserver1.txt"
+  content = <<EOF
+  The EC2 instance id is ${aws_instance.myserver.id}
+  The EC2 instance id is ${aws_instance.myserver.private_ip}
+  The EC2 instance id is ${aws_instance.myserver.public_ip}
+  EOF
+}
+
+Shanmuga Priya,varadhalingam,
+Ahtesham;AMit C,Boopathi,AnilKumarRajana,Unnikrishnan, Arif ,ArnabDB,Mohan Kumar Thirmani, Gurusamy
+
+Task 22 : Create S3 bucket -- bucket name --> username-org-proj-env : Ex: thaha-tcs-sbi-test
+Need bucket name, tag name (same as bucket name) and also a local file with content (the bucket name is ............)
+Before adding locals
+variable.tf
+variable "org" {
+  description = "Supply organization name"
+}
+
+variable "proj" {
+  description = "Enter project name"
+}
+
+variable "env" {
+  description = "Mention for which environment"
+}
+
+main.tf
+resource "aws_s3_bucket" "strg" {
+  bucket = "thaha-${var.org}-${var.proj}-${var.env}"
+  tags = {
+    Name = "thaha-${var.org}-${var.proj}-${var.env}"
+  }
+}
+
+resource "local_file" "f1" {
+  filename = "mybucket.txt"
+  content = "The bucket name is thaha-${var.org}-${var.proj}-${var.env}"
+}
+
+After adding Locals Block
+main.tf
+locals {
+  bname = "thaha-${var.org}-${var.proj}-${var.env}"
+}
+resource "aws_s3_bucket" "strg" {
+  bucket = local.bname
+  tags = {
+    Name = local.bname
+  }
+}
+
+resource "local_file" "f1" {
+  filename = "mybucket.txt"
+  content = "The bucket name is ${local.bname}"
+}
+Boopathi, Amit;Ahtesham,ArnabDB,Shanmuga Priya,Unnikrishnan, Arif,Mohan Kumar Thirmani,AnilKumarRajana
+
+Task 23 : Create s3 bucket -- username-org-proj-env-yy-MM-dd-hh-mm
+https://developer.hashicorp.com/terraform/language/functions/formatdate
+https://developer.hashicorp.com/terraform/language/functions/timestamp
+https://developer.hashicorp.com/terraform/language/functions/timeadd
+variable.tf
+variable "org" {
+  description = "Supply organization name"
+}
+
+variable "proj" {
+  description = "Enter project name"
+}
+
+variable "env" {
+  description = "Mention for which environment"
+}
+
+main.tf
+locals {
+  bname = "thaha-${var.org}-${var.proj}-${var.env}-${formatdate("YY-MM-DD-hh-mm",timeadd(timestamp(),"5h30m"))}"
+}
+resource "aws_s3_bucket" "strg" {
+  bucket = local.bname
+  tags = {
+    Name = local.bname
+  }
+}
+ArnabDB,Ahtesham,Unnikrishnan,Shanmuga Priya ,Arif, ;Amit C,Mohan Kumar Thirmani,AnilKumarRajana
+
+Resource Meta-arguments
+depends_on
+Task 24 : Create multiple resources using depends_on
+main.tf
+resource "aws_vpc" "myvpc1" {
+  cidr_block = "10.31.0.0/16"
+  tags = {
+    Name = "ThahaVPC1"
+  }
+}
+
+resource "aws_vpc" "myvpc2" {
+  cidr_block = "10.131.0.0/16"
+  depends_on = [ aws_vpc.myvpc1 ]
+  tags = {
+    Name = "ThahaVPC2"
+  }
+}
+
+resource "local_file" "f1" {
+  filename = "f1.txt"
+  content = "checking dependency"
+  depends_on = [ aws_vpc.myvpc2 ]
+}
+
+Ahtesham,Unnikrishnan, Arif;Amit;ArnabDB,Mohan Kumar Thirmani,SHanmuga Priya,Boopathi,AnilKumarRajana
+
+Count
+Task 25 : Create multiple EC2 instances using count
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  count = 3
+  tags = {
+    Name = "Thahaserver${count.index+1}"
+  }
+}
+
+Note: Name = "Thahaserver${count.index}"  --> Return Thahaserver0 and Thahaserver1, by default index starts with 0
+If there is a requirement index should start with 1 then use -->  Name = "Thahaserver${count.index+1}"
+
+
+Ahtesham;Amit;Shanmuga Priya,ArnabDB,AnilKumarRajana
+
+Day 7
+How to use a csv file to get key=value format
+vmlist.csv
+env,size
+test,t3.small
+dev,t2.micro
+prod,t3.micro
+
+main.tf
+locals {
+  csvdata = file("./vmlist.csv")           ------ This one will return outout as multi line string (check csvout output block)
+  vmdata = csvdecode(file("./vmlist.csv")) ----- This one will return key = value format (check csvout2 output block)
+}
+
+output "csvout" {
+  value = local.csvdata
+}
+
+output "csvout2" {
+  value = local.vmdata
+}
+
+https://developer.hashicorp.com/terraform/language/functions/csvdecode
+csvdecode decodes a string containing CSV-formatted data and produces a list of maps representing that data.
+
+Ahtesham
+
+Task 26 : Create multiple EC2 instances using CSV file
+vmlist.csv
+env,size
+test,t3.small
+dev,t2.micro
+prod,t3.micro
+
+main.tf
+locals {
+  vmdata = csvdecode(file("./vmlist.csv"))
+}
+
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = local.vmdata[count.index].size
+  count = length(local.vmdata)
+  tags = {
+    Name = "WebServer-${local.vmdata[count.index].env}"
+  }
+}
+
+boopathi,Unnikrishnan,ArnabDB,Ahtesham;Amit, Arif,Shanmuga Priya,
+
+Task 27 : Create multiple instances with for_each  meta argument
+for_each --- create multiple copies of resource such as map
+main.tf
+resource "aws_instance" "myserver" {
+  for_each = {
+    "test" = "t3.small"
+    "dev" = "t2.micro"
+    "prod" = "t3.micro"
+  }
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "${each.value}"
+  tags = {
+    Name = "WebServer-${each.key}"
+  }
+}
+
+Task 28 : Create S3 bucket using for_each (bucketname --> tcs-username-key-value) 
+Ex: (tcs-username-sbi-test)
+main.tf
+resource "aws_s3_bucket" "strg" {
+  for_each = {
+    "project1" = "sbi"
+    "project2" = "irctc"
+    "project3" = "passportseva"
+  }
+ bucket = "tcs-thaha-${each.key}-${each.value}"
+  tags = {
+    Name = "bucket-${each.key}"
+  }
+}
+
+Unnikrishnan;Amit C;poorna, Arif , Ahtesham,ArnabDB,boopathi, Gurusamy, shanmuga Priya,
+
+
+Task 31 : Lifecyle - Meta Argument
+create_before_destroy
+Create an EC2 instance first, once ready change the ami id and also add lifecycle create_before_destroy and test
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-091138d0f0d41ff90"
+  instance_type = "t2.micro"
+  lifecycle {
+    create_before_destroy = true
+  }
+  tags = {
+    Name = "Thahaserver1"
+  }
+}
+
+Arif, Ahtesham;Amit C;boopathi, Gurusamy, shanmuga priya,Unnikrishnan,ArnabDB
+
+prevent_destroy
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-091138d0f0d41ff90"
+  instance_type = "t2.micro"
+  lifecycle {
+    prevent_destroy = true
+  }
+  tags = {
+    Name = "Thahaserver1"
+  }
+}
+
+resource "local_file" "myfile2" {
+  content = "My second file using TF"
+  filename = "file2.txt"
+}
+
+Amit; Gurusamy, ArnabDB, Arif ,boopathi,Shanmuga Priya,Unnikrishnan,Ahtesham
+
+ignore_changes
+main.tf
+resource "aws_s3_bucket" "strg" {
+  bucket = "tcs-thaha-bucket31"
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
+  tags = {
+    Name = "sbi-project"
+    Env = "Production"
+  }
+}
+
+Unnikrishnan;Amit;Shanmuga Priya,ArnabDB, Gurusamy,Ahtesham, Arif
+
+Day 8
+Task 32 : Add a new provider -  TLS
+provider.tf
+provider "tls" {
+}
+
+Task 33 : Create a key pair and pem file
+Generating Key Pair
+https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key
+key.tf
+resource "tls_private_key" "vmkeygen" {
+  algorithm = "RSA"
+  rsa_bits = 2048
+}
+
+Save the pem key file
+resource "local_file" "vmprikey" {
+  filename = "t31key.pem"
+  content = tls_private_key.vmkeygen.private_key_pem
+}
+
+Create AWS Key Pair using Public of RSA key
+resource "aws_key_pair" "thahakey" {
+  key_name = "t31key"
+  public_key = tls_private_key.vmkeygen.public_key_openssh
+}
+
+Ahtesham;Amit;ArnabDB, Arif ,varadhalingam,Unnikrishnan,AnilKumarRajana,boopathi,Shanmuga priya,,Mohan Kumar Thirmani
+ 
+https://developer.hashicorp.com/terraform/language/provisioners
+https://developer.hashicorp.com/terraform/language/provisioners#connect-to-remote-resources
+file: Copies files or directories from the machine where Terraform is running to the new resource.
+local-exec: Invokes an executable on the local machine after Terraform creates the resource. 
+remote-exec: Invokes an executable on the remote resource after Terraform creates the resource. 
+
+Task 34 : Create EC2 instance with file provisionser and remote-exec provisioner
+Create a script file in base location which is used to instal webservice
+deployhttp.sh
+#!/bin/bash
+sudo yum update -y
+sudo yum install httpd -y
+sudo systemctl enable httpd
+sudo systemctl start httpd
+
+Amit, Arif  ,AnilKumarRajana,Unnikrishnan,Mohan Kumar Thirmani,ArnabDB,boopathi
+
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  key_name = "t31key"
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+    host = self.public_ip
+    private_key = tls_private_key.vmkeygen.private_key_pem
+  }
+  provisioner "file" {
+    source = "deployhttp.sh"
+    destination = "/tmp/deployhttp.sh"
+  }
+  provisioner "remote-exec" {
+    inline = [ 
+      "chmod +x /tmp/deployhttp.sh",
+      "/tmp/deployhttp.sh"
+     ]
+  }
+  tags = {
+    Name = "ThahaWebServer"
+  }
+}
+
+Arif ,Unnikrishnan,AnilKumarRajana,ragapriya,varadhalingam,Boopathi,ArnabDB;Amit,Shanmuga priya,
+
+Adding file, remote-exec and local-exec provisioner
+main.tf
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  key_name = "t31key"
+  provisioner "file" {
+    connection {
+    type = "ssh"
+    user = "ec2-user"
+    host = self.public_ip
+    private_key = tls_private_key.vmkeygen.private_key_pem
+  }
+    source = "deployhttp.sh"
+    destination = "/tmp/deployhttp.sh"
+    when = create
+  }
+  provisioner "remote-exec" {
+    connection {
+    type = "ssh"
+    user = "ec2-user"
+    host = self.public_ip
+    private_key = tls_private_key.vmkeygen.private_key_pem
+  }
+    inline = [ 
+      "chmod +x /tmp/deployhttp.sh",
+      "/tmp/deployhttp.sh"
+     ]
+  }
+  provisioner "local-exec" {
+    command = "echo The deleted EC2 instance IP address is ${self.public_ip} > deletedvm.txt"
+    when = destroy
+  }
+  tags = {
+    Name = "ThahaWebServer"
+  }
+}
+Unnikrishnan, Arif ,ArnabDB,Boopathi,/shanmuga Priya,ragapriya
+------------------------------------------------------------------------------
+AMit config --- dont copy
+resource "aws_instance" "myserver" {
+  ami = "ami-0eb38b817b93460ac"
+  instance_type = "t2.micro"
+  key_name = "t1key"
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+    host = self.public_ip
+    private_key = tls_private_key.vmkeygen.private_key_pem
+  }
+  provisioner "file" {
+    source = "deployhttp.sh"
+    destination = "/tmp/deployhttp.sh"
+  }
+  provisioner "remote-exec" {
+    inline = [ 
+      "chmod +x /tmp/deployhttp.sh",
+      "/tmp/deployhttp.sh"
+     ]
+  }
+  provisioner "local-exec" {
+    command = "echo The deleted EC2 instance IP address is ${self.public_ip} > deletedvm.txt"
+    // when = destroy  
+    // ***** Error part Amit C
+  }
+  tags = {
+    Name = "ACWebServer"
+  }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Task 35 : Terraform Graph
+The terraform graph command generates a visual representation of a configuration or execution plan that you can use to generate charts. This command uses the DOT language generate graphs.
+
+main.tf
+resource "local_file" "myfile2" {
+  content = "My second file using TF"
+  filename = "file2.txt"
+}
+
+resource "random_pet" "nrdm" {
+  length = 3
+  separator = "-"
+  prefix = "DB"
+  depends_on = [ local_file.myfile2 ]
+}
+
+resource "aws_vpc" "myvpc" {
+  cidr_block = "10.31.0.0/16"
+  tags = {
+    Name = "ThahaVPC"
+  }
+  depends_on = [ random_pet.nrdm ]
+}
+
+resource "aws_s3_bucket" "strg" {
+  bucket = "tcs-thaha-bucket31"
+  tags = {
+    Name = "thahabucket"
+  }
+  depends_on = [ local_file.myfile2 ]
+}
+
+To view in GUI
+Install Graphic interactive preview extension in visual studio
+Run terraform graph > graph1 (graph1 is file name)
+Select graph1 --> on search type --> >graphviz and select graphviz interactive
+
+ArnabDB;Amit,Shanmuga Priya,Boopathi,ragapriya,AnilKumarRajana, Arif
+
+
+ami-091138d0f0d41ff90
+
+Terraform Workspace
+terraform workspace
+terraform workspace list
+terraform workspace new dev
+terraform workspace new prod
+terraform workspace select dev
+terraform workspace delete dev
+
