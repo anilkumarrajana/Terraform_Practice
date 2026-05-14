@@ -1,5 +1,7 @@
 Course url (LMS Link) - https://www.rjpinfotek.com/course/terraformb20
 
+etherpad link : https://etherpad.opendev.org/p/tcs-rjp-tf-b20-may26
+
 Welcome to TCS Exclusive Days - Terraform - Batch 20 - May 2026
 
 Day 1
